@@ -2,10 +2,10 @@ FROM ubuntu:18.04 AS builder
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		ca-certificates \
-		wget \
-		p7zip-full \
-		unshield
+	ca-certificates \
+	wget \
+	p7zip-full \
+	unshield
 
 RUN wget https://archive.org/download/worms_armageddon_201905/worms_armageddon.iso
 
@@ -34,9 +34,9 @@ RUN cd wa/game \
 	&& rm -rf \$PLUGINSDIR
 
 # Remove files unnecessary for non-interactive (headless) use
-RUN cd wa/game \
-	&& find -regextype egrep -not -regex '^\.(|/(WA\.exe|ltfil10N\.DLL|ltkrn10N\.dll|lflmb10N\.dll|DATA(|/ImgHoles.*|/User(|/Languages(|/[0-9][^/]*(|/English.txt)))|/Mission.*|/Level.*|/Image.*|/Gfx(|/Gfx\.dir|/Water\.dir)|/Custom.*)))$' \
-		-printf 'Deleting %p\n' -delete
+# RUN cd wa/game \
+# 	&& find -regextype egrep -not -regex '^\.(|/(WA\.exe|ltfil10N\.DLL|ltkrn10N\.dll|lflmb10N\.dll|DATA(|/ImgHoles.*|/User(|/Languages(|/[0-9][^/]*(|/English.txt)))|/Mission.*|/Level.*|/Image.*|/Gfx(|/Gfx\.dir|/Water\.dir)|/Custom.*)))$' \
+# 		-printf 'Deleting %p\n' -delete
 
 
 FROM ubuntu:18.04
@@ -44,9 +44,9 @@ FROM ubuntu:18.04
 RUN dpkg --add-architecture i386 \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		wine-stable \
-		wine32 \
-		xvfb \
+	wine-stable \
+	wine32 \
+	xvfb \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Create WINEPREFIX
